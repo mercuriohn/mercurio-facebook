@@ -1,5 +1,6 @@
 const chromium = require('chrome-aws-lambda');
 
+
 async function startBrowser() {
     let browser;
     try {

@@ -1,5 +1,8 @@
 [[plugins]]
  package = "@netlify/plugin-local-install-core"
 
+[[plugins]]
+package = "netlify-plugin-chromium"
+
  [[plugins]]
  package = "./netlify-scrapejobsplugin"
