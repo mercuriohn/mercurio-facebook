@@ -3,7 +3,8 @@
 
 [[plugins]]
 package = "netlify-plugin-chromium"
-setChromePathInEnv: false
+inputs:
+      setChromePathInEnv: false
 
  [[plugins]]
  package = "./netlify-scrapejobsplugin"
