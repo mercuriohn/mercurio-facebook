@@ -1,6 +1,6 @@
 const browser = require("./src/browser");
 //Start the browser and create a browser instance
-const browserInstance = browserObject.startBrowser();
+const browserInstance = browser.startBrowser();
 const url = 'https://rds-empleos.hn/plazas/';
 
 module.exports = {
