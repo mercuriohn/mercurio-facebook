@@ -1,14 +1,23 @@
-const browser = require("./src/browser");
+
+const chromium = require('chrome-aws-lambda');
 //Start the browser and create a browser instance
 
 const url = 'https://rds-empleos.hn/plazas/';
 
 module.exports = {
     onPreBuild: async () => {
-        let page = await browser.newPage();
-        console.log(`Navigating to ${url}...`);
-        await page.goto(this.url);
-        await page.close();
+        const browser = await chromium.puppeteer.launch({
+            executablePath: await chromium.executablePath,
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            headless: chromium.headless,
+        });
+        const page = await browser.newPage();
+
+        await page.goto(url);
+        const screenshot = await page.screenshot({ encoding: 'binary' });
+
         await browser.close();
+
     },
 }
