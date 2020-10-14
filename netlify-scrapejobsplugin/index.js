@@ -9,8 +9,7 @@ module.exports = {
     onPreBuild: async () => {
         const browser = await puppeteer.launch({
             headless: false,
-            args: ["--disable-setuid-sandbox"],
-            'ignoreHTTPSErrors': true
+
         });
         const page = await browser.newPage();
 
