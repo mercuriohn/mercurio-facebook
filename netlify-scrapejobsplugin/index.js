@@ -58,8 +58,18 @@ module.exports = {
 
         console.log("Function `todo-create` invoked")
 
-        data.map(async (item) => {
-            const jobItem = { data: { item } }
+        data.map(async (job) => {
+            const jobItem = {
+                data: {
+                    id: job.id,
+                    company: job.company,
+                    email: job.email,
+                    city: job.city,
+                    date: job.date,
+                    ur: job.ur,
+                    published: job.published
+                }
+            }
             try {
                 const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItem))
                 console.log("job response", response);
