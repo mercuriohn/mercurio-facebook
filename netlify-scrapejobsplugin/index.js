@@ -58,18 +58,18 @@ module.exports = {
 
         console.log("Function `todo-create` invoked")
 
-        try {
-
-            data.map((item) => {
-                const jobItem = { data: { item } }
+        data.map(async (item) => {
+            const jobItem = { data: { item } }
+            try {
                 const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItem))
                 console.log("job response", response);
-            })
+            } catch (err) {
+                console.log(err)
+            }
+        })
 
-            console.log("job created");
-        } catch (err) {
-            console.log(err) // TypeError: failed to fetch
-        }
+        console.log("job created");
+
 
 
     },
