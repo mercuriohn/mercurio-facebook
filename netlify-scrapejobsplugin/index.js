@@ -28,15 +28,13 @@ module.exports = {
         await browser.close();
 
         const jobItem = {
-            data: {
-                id: 1,
-                company: "mercurio",
-                email: "fun@fun.com",
-                city: "tegucigalpa",
-                date: "22.22.20",
-                ur: "https/url",
-                published: false
-            }
+            id: 1,
+            company: "mercurio",
+            email: "fun@fun.com",
+            city: "tegucigalpa",
+            date: "22.22.20",
+            ur: "https/url",
+            published: false
         }
 
         console.log("Function `todo-create` invoked")
