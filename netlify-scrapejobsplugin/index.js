@@ -26,8 +26,7 @@ module.exports = {
         const screenshot = await page.screenshot({ encoding: 'binary' });
 
         await browser.close();
-
-        const jobItem = {
+        const data = [{
             id: 1,
             company: "mercurio",
             email: "fun@fun.com",
@@ -35,12 +34,38 @@ module.exports = {
             date: "22.22.20",
             ur: "https/url",
             published: false
-        }
+        }, {
+            id: 2,
+            company: "mercurio2",
+            email: "fun@fun.com",
+            city: "tegucigalpa",
+            date: "22.22.20",
+            ur: "https/url",
+            published: false
+        }]
+
+        // const jobItem = {
+        //     data: {
+        //         id: 1,
+        //         company: "mercurio",
+        //         email: "fun@fun.com",
+        //         city: "tegucigalpa",
+        //         date: "22.22.20",
+        //         ur: "https/url",
+        //         published: false
+        //     }
+        // }
 
         console.log("Function `todo-create` invoked")
 
         try {
-            const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItem))
+
+            data.map((item) => {
+                const jobItem = { data: { item } }
+                const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItem))
+                console.log("job response", response);
+            })
+
             console.log("job created");
         } catch (err) {
             console.log(err) // TypeError: failed to fetch
