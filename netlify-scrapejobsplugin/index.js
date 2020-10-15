@@ -42,7 +42,7 @@ module.exports = {
         console.log("Function `todo-create` invoked")
 
         try {
-            const response = await client.query(q.Create(q.Ref("classes/jobs"), jobItem))
+            const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItem))
             console.log("job created");
         } catch (err) {
             console.log(err) // TypeError: failed to fetch
