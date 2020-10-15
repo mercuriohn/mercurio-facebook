@@ -45,7 +45,7 @@ module.exports = {
             const response = await client.query(q.Create(q.Ref("classes/jobs"), jobItem))
             console.log("job created");
         } catch (err) {
-            alert(err); // TypeError: failed to fetch
+            console.log(err) // TypeError: failed to fetch
         }
 
 
