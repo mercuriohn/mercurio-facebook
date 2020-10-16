@@ -22,6 +22,7 @@ module.exports = {
         (await browserInstance).close();
         const JobsById = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
 
+        const jobItems = [];
 
         if (JobsById.data.length) {
             const filteredData = getJobs.filter((job) => !JobsById.data.some((jobByID) => job.JobID === jobByID[0]));
@@ -41,16 +42,24 @@ module.exports = {
                         postedAt: null
                     }
                 }
+                jobItems.push(item);
+            })
+
+        }
+        console.log("jobItems ", jobItems);
+
+        jobItems.forEach((jobItem, index) => {
+            console.log("Function `todo-create` invoked " + index);
+            if (index < 3) {
                 try {
-                    const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), item))
+                    const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItem))
                     console.log("job response", response);
                 } catch (err) {
                     console.log(err)
                 }
+            }
 
-            })
-
-        }
+        })
 
         console.log("scrape process finished...");
 
