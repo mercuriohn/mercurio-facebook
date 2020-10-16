@@ -23,9 +23,12 @@ module.exports = {
         console.log("the jobs data", getJobs);
         const JobsById = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
         const ids = [];
-        
-        if(JobsById.data.length)
-        const filteredData = getJobs.filter((job) => JobsById.data.some((jobByID) => job.JobID !== jobByID[0]));
+
+        let filteredData;
+        if (JobsById.data.length) {
+            filteredData = getJobs.filter((job) => JobsById.data.some((jobByID) => job.JobID !== jobByID[0]));
+        }
+
 
         // response.data.map((job) => {
         //     ids.push(job[0]);
