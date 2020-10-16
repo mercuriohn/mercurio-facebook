@@ -20,14 +20,19 @@ module.exports = {
         let browserInstance = browser.startBrowser();
         const getJobs = await scraperController(browserInstance);
         (await browserInstance).close();
-        const JobsById = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
 
+        console.log("jobsById size", getJobs.data.length);
         const jobItems = [];
 
-        if (JobsById.data.length) {
+        if (getJobs.data.length) {
+            //query all jobs sorted by id desc
+            const JobsById = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
+            //filter those job that are not in the database 
             const filteredData = getJobs.filter((job) => !JobsById.data.some((jobByID) => job.JobID === jobByID[0]));
+            console.log("filtered data", filteredData);
             //prepare the data
-            jobItems = filteredData.map(async (data) => {
+            filteredData.forEach((data) => {
+                console.log("filtered data for each");
                 const item = {
                     data: {
                         id: data.JobID,
