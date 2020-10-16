@@ -52,7 +52,7 @@ module.exports = {
 
         }
         console.log("job items", jobItems);
-        jobItems.forEach((job, index) => {
+        jobItems.forEach(async (job, index) => {
             console.log("create job", index);
             await createJob(index);
         })
