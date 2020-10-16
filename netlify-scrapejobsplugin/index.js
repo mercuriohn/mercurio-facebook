@@ -20,13 +20,12 @@ module.exports = {
         let browserInstance = browser.startBrowser();
         const getJobs = await scraperController(browserInstance);
         (await browserInstance).close();
-        console.log("the jobs data", getJobs);
         const JobsById = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
         const ids = [];
 
         let filteredData;
         if (JobsById.data.length) {
-            filteredData = getJobs.filter((job) => JobsById.data.some((jobByID) => job.JobID !== jobByID[0]));
+            filteredData = getJobs.filter((job) => !JobsById.data.some((jobByID) => job.JobID === jobByID[0]));
         }
 
         //fdfd
