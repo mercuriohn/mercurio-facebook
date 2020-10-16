@@ -70,13 +70,14 @@ module.exports = {
         // // })
 
         var FB = require('fb');
-
+        let facebook;
         FB.setAccessToken('EAAE8cHi7s9oBAO0MiBlVx6B5hmnAhZCVBbZBlu6uIJIhdrZBjZC0DD8OayuDmx9SroMhU8xp9dKisHleAkmlQZAq9tqLfCzG3p00jP0y7sFwKEMmXZCVYFwys03o6uxfKL0iseZBvSsqWbLJAfka269wxMMXcHbqDffYEZARiCf37XnKVrJbJ3TBrnuZC0ZAycseAZD');
         FB.api(
             '/mercuriohonduras/feed',
             'POST',
             { "message": "Testing with api met netlify" },
             function (response) {
+                facebook = response;
                 console.log(response);
             }
         );
