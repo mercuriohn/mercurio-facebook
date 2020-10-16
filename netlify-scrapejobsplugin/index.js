@@ -1,4 +1,4 @@
-
+var FB = require('fb');
 // const chromium = require('chrome-aws-lambda')
 // //Start the browser and create a browser instance
 // const faunadb = require('faunadb')
@@ -69,7 +69,7 @@ module.exports = {
         // //     }
         // // })
 
-        var FB = require('fb');
+
         let facebook;
         FB.setAccessToken('EAAE8cHi7s9oBAO0MiBlVx6B5hmnAhZCVBbZBlu6uIJIhdrZBjZC0DD8OayuDmx9SroMhU8xp9dKisHleAkmlQZAq9tqLfCzG3p00jP0y7sFwKEMmXZCVYFwys03o6uxfKL0iseZBvSsqWbLJAfka269wxMMXcHbqDffYEZARiCf37XnKVrJbJ3TBrnuZC0ZAycseAZD');
         FB.api(
