@@ -44,7 +44,7 @@ const scraperObject = {
             try {
                 const nextButton = await page.$eval('ul.pagination li.active + li > a', a => a.textContent);
                 nextButtonExist = true;
-                if (scrapedData.length === 30) {
+                if (scrapedData.length === 10) {
                     nextButtonExist = false;
                 }
             }
@@ -61,7 +61,7 @@ const scraperObject = {
             return scrapedData;
         }
         let data = await scrapeCurrentPage();
-        await browser.close();
+        console.log("give me data", data);
         return data;
     }
 }

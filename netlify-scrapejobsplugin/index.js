@@ -19,6 +19,7 @@ module.exports = {
         //Start the browser and create a browser instance
         let browserInstance = browser.startBrowser();
         const getJobs = await scraperController(browserInstance);
+        (await browserInstance).close();
         console.log("the jobs data", getJobs);
 
     },
