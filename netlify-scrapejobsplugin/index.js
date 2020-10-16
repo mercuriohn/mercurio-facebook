@@ -18,7 +18,7 @@ module.exports = {
     onPreBuild: async () => {
         //Start the browser and create a browser instance
         let browserInstance = browser.startBrowser();
-        const getJobs = scraperController(browserInstance);
+        const getJobs = await scraperController(browserInstance);
         console.log("the jobs data", getJobs);
 
     },
