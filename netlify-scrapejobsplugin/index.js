@@ -5,8 +5,9 @@ const faunadb = require('faunadb');
 
 const axios = require('axios');
 
-//const token = 'EAAE8cHi7s9oBACDXzZCbgOI9SdWcR8wCxbhZB6JIai3ZBmHJjRWVbgycMV7eiHcwZAfOY2opvz4J4QBxIci2Ilul5aEbOiRDvPMmm4TuqZBb16iOjLkXirgAioV9Ky4sh37lBnrOBjCToau9iCgUgNBaywBXHGVL81wp7lje1Hrnw6YuSkEMpcpiZCOUsUJAYZD';
-const facebook_token = process.env.FACEBOOK_ACCESS_TOKEN
+const facebook_token = process.env.FACEBOOK_ACCESS_TOKEN;
+const facebook_page_id = process.env.FACEBOOK_PAGE_ID;
+
 const url = 'https://rds-empleos.hn/plazas/';
 
 q = faunadb.query;
@@ -20,7 +21,7 @@ module.exports = {
     onPreBuild: async () => {
         let axioso = "none";
         // axios 
-        const post = await axios.post('https://graph.facebook.com/1635252116764210/feed', {
+        const post = await axios.post(`https://graph.facebook.com/${facebook_page_id}/feed`, {
             message: 'hello fans netlify test',
             access_token: facebook_token
         })
