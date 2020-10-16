@@ -5,7 +5,7 @@ const faunadb = require('faunadb');
 
 const axios = require('axios');
 
-const facebook_token = process.env.FACEBOOK_ACCESS_TOKEN;
+const facebook_token = process.env.FACEBOOK_LONG_LIVE_PAGE_ACCESS_TOKEN;
 const facebook_page_id = process.env.FACEBOOK_PAGE_ID;
 
 const url = 'https://rds-empleos.hn/plazas/';
