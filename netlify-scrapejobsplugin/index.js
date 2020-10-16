@@ -21,10 +21,10 @@ module.exports = {
         const getJobs = await scraperController(browserInstance);
         (await browserInstance).close();
 
-        console.log("jobsById size", getJobs.data.length);
+        console.log("jobsById size", getJobs.length);
         const jobItems = [];
 
-        if (getJobs.data.length) {
+        if (getJobs.length) {
             //query all jobs sorted by id desc
             const JobsById = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
             //filter those job that are not in the database 
