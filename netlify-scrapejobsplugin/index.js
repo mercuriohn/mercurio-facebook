@@ -22,7 +22,11 @@ module.exports = {
         // (await browserInstance).close();
         // console.log("the jobs data", getJobs);
         const response = await adminClient.query(q.Paginate(q.Match(q.Index("people_sort_by_first_desc"))));
-        console.log("data", response.data);
+        const ids = [];
+        response.data.map((job) => {
+            ids.push(job[0]);
+        })
+        console.log("data", ids);
 
     },
 }
