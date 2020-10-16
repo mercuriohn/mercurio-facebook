@@ -21,7 +21,7 @@ module.exports = {
         // const getJobs = await scraperController(browserInstance);
         // (await browserInstance).close();
         // console.log("the jobs data", getJobs);
-        const response = await adminClient.query(q.Paginate(q.Match(q.Index("people_sort_by_first_desc"))));
+        const response = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
         const ids = [];
         response.data.map((job) => {
             ids.push(job[0]);
