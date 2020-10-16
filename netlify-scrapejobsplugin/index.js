@@ -3,6 +3,8 @@ const chromium = require('chrome-aws-lambda')
 //Start the browser and create a browser instance
 const faunadb = require('faunadb')
 
+const FB = require('fb');
+
 const url = 'https://rds-empleos.hn/plazas/';
 
 q = faunadb.query;
@@ -44,17 +46,6 @@ module.exports = {
             published: false
         }]
 
-        // const jobItem = {
-        //     data: {
-        //         id: 1,
-        //         company: "mercurio",
-        //         email: "fun@fun.com",
-        //         city: "tegucigalpa",
-        //         date: "22.22.20",
-        //         ur: "https/url",
-        //         published: false
-        //     }
-        // }
 
         console.log("Function `todo-create` invoked")
 
@@ -71,7 +62,7 @@ module.exports = {
                 }
             }
             try {
-                const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItem))
+                //const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItem))
                 console.log("job response", response);
             } catch (err) {
                 console.log(err)
@@ -79,6 +70,17 @@ module.exports = {
         })
 
         console.log("job created");
+
+        // facebook feed 
+        FB.setAccessToken('EAAE8cHi7s9oBAO0MiBlVx6B5hmnAhZCVBbZBlu6uIJIhdrZBjZC0DD8OayuDmx9SroMhU8xp9dKisHleAkmlQZAq9tqLfCzG3p00jP0y7sFwKEMmXZCVYFwys03o6uxfKL0iseZBvSsqWbLJAfka269wxMMXcHbqDffYEZARiCf37XnKVrJbJ3TBrnuZC0ZAycseAZD');
+        FB.api(
+            '/mercuriohonduras/feed',
+            'POST',
+            { "message": "Testing with api from netlify" },
+            function (response) {
+                console.log(response);
+            }
+        );
 
 
 
