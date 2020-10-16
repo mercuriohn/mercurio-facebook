@@ -25,14 +25,34 @@ module.exports = {
 
         let filteredData;
         if (JobsById.data.length) {
-            filteredData = getJobs.filter((job) => !JobsById.data.some((jobByID) => job.JobID === jobByID[0]));
+            const filteredData = getJobs.filter((job) => !JobsById.data.some((jobByID) => job.JobID === jobByID[0]));
+            //prepare the data
+            filteredData.map(async (data) => {
+                const item = {
+                    id: data.JobID,
+                    timestamp: new Date().getTime(),
+                    title: data.JobTitle,
+                    company: data.JobCompany,
+                    email: data.JobEmail,
+                    city: data.JobCity,
+                    date: data.JobDate,
+                    link: data.JobUrl,
+                    facebookPost: false,
+                    postedAt: null
+                }
+                try {
+                    const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), item))
+                    console.log("job response", response);
+                } catch (err) {
+                    console.log(err)
+                }
+
+            })
+
         }
 
-        //fdfd
-        // response.data.map((job) => {
-        //     ids.push(job[0]);
-        // })
-        console.log("Filtered data", filteredData);
+
+        //console.log("Filtered data", filteredData);
         console.log("filtered data size", filteredData.length);
 
     },
