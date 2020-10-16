@@ -76,7 +76,10 @@ module.exports = {
         FB.api(
             '/mercuriohonduras/feed',
             'POST',
-            { "message": "Testing with api from netlify" }
+            { "message": "Testing with api from netlify" },
+            function (response) {
+                console.log("facebook post", response);
+            }
 
         );
 
