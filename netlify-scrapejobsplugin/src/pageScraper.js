@@ -44,7 +44,7 @@ const scraperObject = {
             try {
                 const nextButton = await page.$eval('ul.pagination li.active + li > a', a => a.textContent);
                 nextButtonExist = true;
-                if (scrapedData.length === 10) {
+                if (scrapedData.length === 20) {
                     nextButtonExist = false;
                 }
             }
