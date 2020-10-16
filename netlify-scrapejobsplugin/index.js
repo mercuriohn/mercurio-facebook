@@ -23,13 +23,15 @@ module.exports = {
         console.log("the jobs data", getJobs);
         const JobsById = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
         const ids = [];
-        const filteredData = getJobs.filter((job) => JobsById.some((jobByID) => job.JobID !== jobByID[0]));
+        
+        if(JobsById.data.length)
+        const filteredData = getJobs.filter((job) => JobsById.data.some((jobByID) => job.JobID !== jobByID[0]));
 
         // response.data.map((job) => {
         //     ids.push(job[0]);
         // })
         console.log("Filtered data", filteredData);
-        console.log("filtered data size", filteredData.lenght);
+        console.log("filtered data size", filteredData.length);
 
     },
 }
