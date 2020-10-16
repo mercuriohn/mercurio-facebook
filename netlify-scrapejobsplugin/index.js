@@ -10,6 +10,11 @@ const facebook_page_id = process.env.FACEBOOK_PAGE_ID;
 
 const url = 'https://rds-empleos.hn/plazas/';
 
+const message = `PUESTO: ASESOR DE NEGOCIOS EN MERCADOS\n\n
+                 para aplicar contactar este correo pre@sa.com\n\n
+                 Lugar: tegucigalpa
+                `
+
 q = faunadb.query;
 
 // Once required, we need a new instance with our secret
@@ -23,7 +28,7 @@ module.exports = {
         // axios 
         const post = await axios.post(`https://graph.facebook.com/${facebook_page_id}/photos`, {
             url: "https://images.unsplash.com/photo-1602526432604-029a709e131c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE3NTEwMn0",
-            message: 'hello fans netlify test',
+            message: message,
             access_token: facebook_token
         })
         axioso = post.data;
