@@ -21,7 +21,8 @@ module.exports = {
     onPreBuild: async () => {
         let axioso = "none";
         // axios 
-        const post = await axios.post(`https://graph.facebook.com/${facebook_page_id}/feed`, {
+        const post = await axios.post(`https://graph.facebook.com/${facebook_page_id}/photos`, {
+            url: "https://images.unsplash.com/photo-1602526432604-029a709e131c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE3NTEwMn0",
             message: 'hello fans netlify test',
             access_token: facebook_token
         })
