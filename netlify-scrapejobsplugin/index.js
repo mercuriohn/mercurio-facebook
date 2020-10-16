@@ -21,19 +21,15 @@ module.exports = {
         const getJobs = await scraperController(browserInstance);
         (await browserInstance).close();
 
-        console.log("jobsById size", getJobs.length);
-        const jobItems = [];
-
         if (getJobs.length) {
             //query all jobs sorted by id desc
             const JobsById = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
             //filter those job that are not in the database 
             const filteredData = getJobs.filter((job) => !JobsById.data.some((jobByID) => job.JobID === jobByID[0]));
-            console.log("filtered data", filteredData);
+            console.log("filtered data size", filteredData.length);
             //prepare the data
-            filteredData.forEach((data) => {
-                console.log("filtered data for each");
-                const item = {
+            filteredData.forEach(async (data) => {
+                const jobItem = {
                     data: {
                         id: data.JobID,
                         timestamp: new Date().getTime(),
@@ -47,24 +43,16 @@ module.exports = {
                         postedAt: null
                     }
                 }
-                jobItems.push(item);
-            })
-
-        }
-        console.log("jobItems ", jobItems);
-
-        jobItems.forEach(async (jobItem, index) => {
-            console.log("Function `todo-create` invoked " + index);
-            if (index < 3) {
                 try {
                     const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItem))
-                    console.log("job response", response);
+                    console.log("job created...", response);
                 } catch (err) {
                     console.log(err)
                 }
-            }
 
-        })
+            })
+
+        }
 
         console.log("scrape process finished...");
 
