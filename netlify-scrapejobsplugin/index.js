@@ -52,15 +52,19 @@ module.exports = {
 
         }
         console.log("job items", jobItems);
-        jobItems.forEach(async (job, index) => {
+        jobItems.forEach((job, index) => {
             console.log("create job", index);
+            await createJob(index);
+        })
+
+        const createJob = async (index) => {
             try {
-                const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), job))
+                const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItems[index]))
                 console.log("job created...", response);
             } catch (err) {
                 console.log(err)
             }
-        })
+        }
 
         console.log("scrape process finished...");
 
