@@ -3,7 +3,7 @@ const chromium = require('chrome-aws-lambda');
 //Start the browser and create a browser instance
 const faunadb = require('faunadb');
 
-const axios = require('axios').default;
+const axios = require('axios');
 
 const token = 'EAAE8cHi7s9oBACDXzZCbgOI9SdWcR8wCxbhZB6JIai3ZBmHJjRWVbgycMV7eiHcwZAfOY2opvz4J4QBxIci2Ilul5aEbOiRDvPMmm4TuqZBb16iOjLkXirgAioV9Ky4sh37lBnrOBjCToau9iCgUgNBaywBXHGVL81wp7lje1Hrnw6YuSkEMpcpiZCOUsUJAYZD';
 
@@ -18,6 +18,16 @@ var adminClient = new faunadb.Client({
 
 module.exports = {
     onPreBuild: async () => {
+        let axioso = "none";
+        // axios 
+        const post = await axios.post('https://graph.facebook.com/1635252116764210/feed', {
+            message: 'hello fans netlify',
+            access_token: token
+        })
+        axioso = post;
+
+        console.log("axios", axioso);
+
         const executablePath = await chromium.executablePath
         const browser = await chromium.puppeteer.launch({
             args: await chromium.args,
@@ -83,21 +93,6 @@ module.exports = {
         })
 
         console.log("job created");
-
-        let axioso = "none";
-        // axios 
-        axios.post('https://graph.facebook.com/1635252116764210/feed', {
-            message: 'hello fans netlify',
-            access_token: token
-        })
-            .then(function (response) {
-                axioso = response;
-                console.log("axios response", response.data);
-            })
-            .catch(function (error) {
-                console.log("axios error", error);
-            });
-        console.log("axios", axioso);
 
     },
 }
