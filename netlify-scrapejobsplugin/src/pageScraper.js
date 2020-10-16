@@ -8,10 +8,7 @@ const scraperObject = {
         let scrapedData = [];
         async function scrapeCurrentPage() {
             // Wait for the required DOM to be rendered
-            console.log("preparando el selector");
             await page.waitForSelector('.inner-content');
-            console.log("I got the selector");
-
             // Get the link to all the required books
             let urls = await page.$$eval('ul.listService > li', links => {
                 // Extract the links from the data
@@ -46,8 +43,9 @@ const scraperObject = {
             let nextButtonExist = false;
             try {
                 const nextButton = await page.$eval('ul.pagination li.active + li > a', a => a.textContent);
+                console.log("page No", nextButton);
                 nextButtonExist = true;
-                if (scrapedData.length === 20) {
+                if (scrapedData.length === 30) {
                     nextButtonExist = false;
                 }
             }
@@ -64,7 +62,6 @@ const scraperObject = {
             return scrapedData;
         }
         let data = await scrapeCurrentPage();
-        console.log("give me data", data);
         return data;
     }
 }
