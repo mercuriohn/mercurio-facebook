@@ -23,7 +23,7 @@ module.exports = {
         const JobsById = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
         const ids = [];
 
-        let filteredData;
+
         if (JobsById.data.length) {
             const filteredData = getJobs.filter((job) => !JobsById.data.some((jobByID) => job.JobID === jobByID[0]));
             //prepare the data
@@ -52,8 +52,7 @@ module.exports = {
         }
 
 
-        //console.log("Filtered data", filteredData);
-        console.log("filtered data size", filteredData.length);
+        console.log("scrape process finished...");
 
     },
 }
