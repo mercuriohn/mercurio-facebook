@@ -21,6 +21,8 @@ module.exports = {
         const getJobs = await scraperController(browserInstance);
         (await browserInstance).close();
 
+        let jobItems = [];
+
         if (getJobs.length) {
             //query all jobs sorted by id desc
             const JobsById = await adminClient.query(q.Paginate(q.Match(q.Index("jobs_sort_by_first_desc"))));
@@ -28,7 +30,7 @@ module.exports = {
             const filteredData = getJobs.filter((job) => !JobsById.data.some((jobByID) => job.JobID === jobByID[0]));
             console.log("filtered data size", filteredData.length);
             //prepare the data
-            filteredData.forEach(async (data) => {
+            filteredData.map((data) => {
                 const jobItem = {
                     data: {
                         id: data.JobID,
@@ -43,16 +45,22 @@ module.exports = {
                         postedAt: null
                     }
                 }
-                try {
-                    const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), jobItem))
-                    console.log("job created...", response);
-                } catch (err) {
-                    console.log(err)
-                }
+
+                jobItems.push(jobItem);
 
             })
 
         }
+        console.log("job items", jobItems);
+        jobItems.forEach(async (job, index) => {
+            console.log("create job", index);
+            try {
+                const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), job))
+                console.log("job created...", response);
+            } catch (err) {
+                console.log(err)
+            }
+        })
 
         console.log("scrape process finished...");
 
