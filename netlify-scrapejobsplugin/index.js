@@ -21,8 +21,8 @@ module.exports = {
         let axioso = "none";
         // axios 
         const post = await axios.post('https://graph.facebook.com/1635252116764210/feed', {
-            message: 'hello fans netlify',
-            access_token: token
+            message: 'hello fans netlify test',
+            access_token: facebook_token
         })
         axioso = post.data;
 
