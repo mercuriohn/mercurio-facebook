@@ -17,10 +17,12 @@ var adminClient = new faunadb.Client({
 module.exports = {
     onPreBuild: async () => {
         //Start the browser and create a browser instance
-        let browserInstance = browser.startBrowser();
-        const getJobs = await scraperController(browserInstance);
-        (await browserInstance).close();
-        console.log("the jobs data", getJobs);
+        // let browserInstance = browser.startBrowser();
+        // const getJobs = await scraperController(browserInstance);
+        // (await browserInstance).close();
+        // console.log("the jobs data", getJobs);
+        const response = await adminClient.query(q.Paginate(q.Match(q.Index("people_sort_by_first_desc"))));
+        console.log("data", response.data);
 
     },
 }
