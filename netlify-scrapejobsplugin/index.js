@@ -70,7 +70,7 @@ module.exports = {
         // })
 
         console.log("job created");
-
+        let facebook;
         // facebook feed 
         FB.setAccessToken('EAAE8cHi7s9oBAO0MiBlVx6B5hmnAhZCVBbZBlu6uIJIhdrZBjZC0DD8OayuDmx9SroMhU8xp9dKisHleAkmlQZAq9tqLfCzG3p00jP0y7sFwKEMmXZCVYFwys03o6uxfKL0iseZBvSsqWbLJAfka269wxMMXcHbqDffYEZARiCf37XnKVrJbJ3TBrnuZC0ZAycseAZD');
         FB.api(
@@ -78,10 +78,13 @@ module.exports = {
             'POST',
             { "message": "Testing with api from netlify" },
             function (response) {
+                facebook = response;
                 console.log("facebook post", response);
             }
 
         );
+
+        console.log("facebook hit", facebook);
 
 
 
