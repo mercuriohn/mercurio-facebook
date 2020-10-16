@@ -5,8 +5,8 @@ const faunadb = require('faunadb');
 
 const axios = require('axios');
 
-const token = 'EAAE8cHi7s9oBACDXzZCbgOI9SdWcR8wCxbhZB6JIai3ZBmHJjRWVbgycMV7eiHcwZAfOY2opvz4J4QBxIci2Ilul5aEbOiRDvPMmm4TuqZBb16iOjLkXirgAioV9Ky4sh37lBnrOBjCToau9iCgUgNBaywBXHGVL81wp7lje1Hrnw6YuSkEMpcpiZCOUsUJAYZD';
-
+//const token = 'EAAE8cHi7s9oBACDXzZCbgOI9SdWcR8wCxbhZB6JIai3ZBmHJjRWVbgycMV7eiHcwZAfOY2opvz4J4QBxIci2Ilul5aEbOiRDvPMmm4TuqZBb16iOjLkXirgAioV9Ky4sh37lBnrOBjCToau9iCgUgNBaywBXHGVL81wp7lje1Hrnw6YuSkEMpcpiZCOUsUJAYZD';
+const facebook_token = process.env.FACEBOOK_ACCESS_TOKEN
 const url = 'https://rds-empleos.hn/plazas/';
 
 q = faunadb.query;
@@ -24,7 +24,7 @@ module.exports = {
             message: 'hello fans netlify',
             access_token: token
         })
-        axioso = post;
+        axioso = post.data;
 
         console.log("axios", axioso);
 
