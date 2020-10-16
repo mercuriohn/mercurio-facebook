@@ -4,10 +4,13 @@ const scraperObject = {
         //open a new page
         let page = await browser.newPage();
         console.log(`Navigating to ${this.url}...`);
+        await page.goto(this.url);
         let scrapedData = [];
         async function scrapeCurrentPage() {
             // Wait for the required DOM to be rendered
+            console.log("preparando el selector");
             await page.waitForSelector('.inner-content');
+            console.log("I got the selector");
 
             // Get the link to all the required books
             let urls = await page.$$eval('ul.listService > li', links => {
