@@ -48,7 +48,7 @@ module.exports = {
         }
         console.log("jobItems ", jobItems);
 
-        jobItems.forEach((jobItem, index) => {
+        jobItems.forEach(async (jobItem, index) => {
             console.log("Function `todo-create` invoked " + index);
             if (index < 3) {
                 try {
