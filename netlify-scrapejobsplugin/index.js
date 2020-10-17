@@ -51,7 +51,7 @@ module.exports = {
             })
 
         }
-        console.log("job items", jobItems);
+        //console.log("job items", jobItems);
 
         // jobItems.forEach(async (job, index) => {
         //     console.log("create job", index);
@@ -68,8 +68,8 @@ module.exports = {
 
         const createdJobs = await Promise.all(jobPromises);
 
-        createdJobs.forEach((response) => {
-            console.log("job created", response);
+        createdJobs.forEach((response, index) => {
+            console.log("job created", index);
         })
 
         console.log("scrape process finished...");
