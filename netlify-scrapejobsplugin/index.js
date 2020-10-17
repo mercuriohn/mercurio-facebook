@@ -52,15 +52,24 @@ module.exports = {
 
         }
         console.log("job items", jobItems);
-        jobItems.forEach(async (job, index) => {
-            console.log("create job", index);
-            try {
-                console.log("about to create a job");
-                const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), job))
-                console.log("job created...", response);
-            } catch (err) {
-                console.log(err)
-            }
+
+        // jobItems.forEach(async (job, index) => {
+        //     console.log("create job", index);
+        //     try {
+        //         console.log("about to create a job");
+        //         const response = await adminClient.query(q.Create(q.Ref("classes/jobs"), job))
+        //         console.log("job created...", response);
+        //     } catch (err) {
+        //         console.log(err)
+        //     }
+        // })
+
+        const jobPromises = jobItems.map((job) => adminClient.query(q.Create(q.Ref("classes/jobs"), job)))
+
+        const createdJobs = await Promise.all(jobPromises);
+
+        createdJobs.forEach((response) => {
+            console.log("job created", response);
         })
 
         console.log("scrape process finished...");
