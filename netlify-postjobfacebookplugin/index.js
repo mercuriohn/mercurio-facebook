@@ -130,21 +130,40 @@ module.exports = {
 
         })
 
-
-        jobs.forEach(async (element) => {
-            const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), element.ref),
-                { data: { facebookPost: true } }));
-            jobsUpdated.push(res);
-
-        });
+        let numberOfJobsPublished = 0;
 
         const jobsOnFacebook = await Promise.all(publishedFacebookPromise);
         jobsOnFacebook.forEach((element, index) => {
+            numberOfJobsPublished++;
             console.log("No of jobs published", index);
         });
 
-        const updatedJobs = await Promise.all(jobsUpdated);
-        console.log("updated jobs");
+        if (numberOfJobsPublished) console.log(`${numberOfJobsPublished} have been published`);
+
+
+
+        if (jobsOnFacebook.length) {
+            jobs.forEach(async (element) => {
+                const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), element.ref),
+                    { data: { facebookPost: true } }));
+                jobsUpdated.push(res);
+
+            });
+
+            const updatedJobs = await Promise.all(jobsUpdated);
+
+            let numberOfJobsUpdated = 0;
+
+            updatedJobs.forEach((item, index) => {
+                numberOfJobsUpdated++
+                console.log("jobs updated", index);
+            })
+            console.log("number of jobs updated", numberOfJobsUpdated);
+        } else {
+            console.log("no jobs updated in the database");
+        }
+
+
 
 
     },
