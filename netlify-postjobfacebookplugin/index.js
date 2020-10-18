@@ -56,8 +56,10 @@ const getJobs = async () => {
 
 const jobsFactory = async () => {
 
+    console.log("get images", getImages());
+    const images = undefined;
     //clone the images 
-    const images = getImages().map((image) => image);
+    //const images = getImages().map((image) => image);
 
     const jobs = getJobs.map((job) => {
         const item = {
