@@ -33,10 +33,10 @@ const getImages = async () => {
 
     const imageResponse = await axios.get(`https://api.unsplash.com/search/photos/?query=${getQuery}&client_id=${imageToken}`);
 
-    console.log("imageResponse ", imageResponse);
+    console.log("imageResponse ", imageResponse.data.results.length);
     //console.log("image response object", imageResponse.map((image) => ({ id: image.id, url: image.small })));
 
-    return await imageResponse.map((image) => ({ id: image.id, url: image.small }));
+    return imageResponse.data.results.map((image) => ({ id: image.id, url: image.small }));
 }
 
 const getJobs = async () => {
@@ -48,34 +48,33 @@ const getJobs = async () => {
     }
 
     //get first 10 jobs that haven't been published on facebook 
-    return getJobs.filter((job) => !job[6]).filter((_, index) => index < 11);
+    return JobsById.filter((job) => !job[6]).filter((_, index) => index < 11);
 }
 
 const jobsFactory = async () => {
 
-    const image = await getImages();
-    console.log("the images", image);
-
     //clone the images 
-    // const images = getImages().map((image) => image);
+    const images = getImages().map((image) => image);
 
-    // const jobs = getJobs.map((job) => {
-    //     const item = {
-    //         id: job[0],
-    //         title: job[1],
-    //         company: job[2],
-    //         email: job[3],
-    //         city: job[4],
-    //         date: job[5],
-    //         published: job[6],
-    //         link: job[7],
-    //         imageUrl: images.shift()
-    //     }
+    console.log("the images", images);
 
-    //     return item;
-    // })
+    const jobs = getJobs.map((job) => {
+        const item = {
+            id: job[0],
+            title: job[1],
+            company: job[2],
+            email: job[3],
+            city: job[4],
+            date: job[5],
+            published: job[6],
+            link: job[7],
+            imageUrl: images.shift()
+        }
 
-    // return jobs;
+        return item;
+    })
+
+    return jobs;
 }
 
 
