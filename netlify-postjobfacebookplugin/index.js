@@ -33,7 +33,7 @@ const getImages = async () => {
 
     const images = imageResponse.data.results.map((image) => ({ id: image.id, url: image.urls.small }));
 
-    console.log("images response structure", images);
+    //console.log("images response structure", images);
 
     return images;
 }
@@ -58,9 +58,9 @@ const jobsFactory = async () => {
     const images = await getImages();
     const jobs = await getJobs();
 
-    console.log("the images", image);
+    console.log("the images", images);
 
-    console.log("get jobs", job);
+    console.log("get jobs", jobs);
 
     const jobsToPublish = jobsToPublish.map((job) => {
         const item = {
