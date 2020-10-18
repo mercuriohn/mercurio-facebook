@@ -63,6 +63,15 @@ const jobsFactory = async () => {
     console.log("get jobs", jobs);
 
     const jobsToPublish = jobs.map((job) => {
+        let attemp = 0;
+        let picture = images.shift();
+
+        if (!picture && attemp <= 2) {
+            const images = await getImages();
+            picture = images.shift();
+            attemp++;
+        }
+
         const item = {
             id: job[0],
             title: job[1],
@@ -72,7 +81,7 @@ const jobsFactory = async () => {
             date: job[5],
             published: job[6],
             link: job[7],
-            imageUrl: images.shift()
+            imageUrl: picture ? picture.url : null
         }
 
         return item;
