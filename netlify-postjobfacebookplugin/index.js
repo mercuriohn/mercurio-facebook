@@ -97,8 +97,6 @@ module.exports = {
 
         const publishedFacebookPromise = [];
 
-        console.log("jobs", await jobsFactory());
-
         const jobs = await jobsFactory();
 
         const reverseJobs = jobs.reverse();
@@ -113,38 +111,31 @@ module.exports = {
             Lugar del empleo: ${jobElement.city}\n\n
             Fecha para aplicar ${jobElement.date}`;
 
-            if (jobElement.ref === "279673808590210564") {
+            if (jobElement.imageUrl) {
+                // axios 
+                const post = await axios.post(`https://graph.facebook.com/${facebook_page_id}/photos`, {
+                    url: jobElement.imageUrl,
+                    message: message,
+                    access_token: facebook_token
+                })
+                publishedFacebookPromise.push(post);
 
-                if (jobElement.imageUrl) {
-                    // axios 
-                    const post = await axios.post(`https://graph.facebook.com/${facebook_page_id}/photos`, {
-                        url: jobElement.imageUrl,
-                        message: message,
-                        access_token: facebook_token
-                    })
-                    publishedFacebookPromise.push(post);
-
-                } else {
-                    // axios 
-                    const post = await axios.post(`https://graph.facebook.com/${facebook_page_id}/feed`, {
-                        message: message,
-                        access_token: facebook_token
-                    })
-                    publishedFacebookPromise.push(post);
-                }
-
+            } else {
+                // axios 
+                const post = await axios.post(`https://graph.facebook.com/${facebook_page_id}/feed`, {
+                    message: message,
+                    access_token: facebook_token
+                })
+                publishedFacebookPromise.push(post);
             }
 
         })
 
 
         jobs.forEach(async (element) => {
-            if (element.ref === "279673808590210564") {
-                console.log("element ref", element.ref);
-                const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), element.ref),
-                    { data: { facebookPost: true } }));
-                jobsUpdated.push(res);
-            }
+            const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), element.ref),
+                { data: { facebookPost: true } }));
+            jobsUpdated.push(res);
 
         });
 
