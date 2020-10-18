@@ -27,16 +27,16 @@ const getImages = async () => {
 
     const getQuery = imagesQueries[index];
 
-    //const imageResponse = await axios.get(`https://api.unsplash.com/search/photos/?query=${getQuery}&client_id=${imageToken}`);
+    const imageResponse = await axios.get(`https://api.unsplash.com/search/photos/?query=${getQuery}&client_id=${imageToken}`);
 
     //console.log("imageResponse ", imageResponse.data.results.length);
 
-    //const images = imageResponse.data.results.map((image) => ({ id: image.id, url: image.urls.small }));
+    const images = imageResponse.data.results.map((image) => ({ id: image.id, url: image.urls.small }));
 
     //console.log("images response structure", images);
 
-    //return images;
-    return [];
+    return images;
+
 }
 
 const getJobs = async () => {
@@ -88,12 +88,56 @@ const jobsFactory = async () => {
 
 module.exports = {
     onPreBuild: async () => {
+
+        const facebook_token = process.env.FACEBOOK_LONG_LIVE_PAGE_ACCESS_TOKEN;
+
+        const facebook_page_id = process.env.FACEBOOK_PAGE_ID;
+
         const jobsUpdated = [];
+
+        const publishedFacebookPromise = [];
+
         console.log("jobs", await jobsFactory());
+
         const jobs = await jobsFactory();
 
-        jobs.forEach(async (element, index) => {
-            if (index === 0 || index === 1) {
+        const reverseJobs = jobs.reverse();
+
+        reverseJobs.forEach((job) => {
+
+            const message = `PUESTO: ${job.title}\n\n
+            Empresa:${job.company}\n\n
+            envía tu curriculum aquí ${job.email}\n\n
+            Lugar del empleo: ${job.city}\n\n
+            Fecha para aplicar ${job.date}`;
+
+            if (job.ref === "279673808590210564") {
+
+                if (job.imageUrl) {
+                    // axios 
+                    const post = axios.post(`https://graph.facebook.com/${facebook_page_id}/photos`, {
+                        url: job.imageUrl,
+                        message: message,
+                        access_token: facebook_token
+                    })
+                    publishedFacebookPromise.push(post);
+
+                } else {
+                    // axios 
+                    const post = axios.post(`https://graph.facebook.com/${facebook_page_id}/feed`, {
+                        message: message,
+                        access_token: facebook_token
+                    })
+                    publishedFacebookPromise.push(post);
+                }
+
+            }
+
+        })
+
+
+        jobs.forEach(async (element) => {
+            if (job.ref === "279673808590210564") {
                 console.log("element ref", element.ref);
                 const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), element.ref),
                     { data: { facebookPost: true } }));
@@ -102,8 +146,10 @@ module.exports = {
 
         });
 
+        await Promise.all(publishedFacebookPromise);
+
         const updatedJobs = await Promise.all(jobsUpdated);
-        console.log("updated ", updatedJobs);
+        console.log("updated jobs");
 
 
     },
