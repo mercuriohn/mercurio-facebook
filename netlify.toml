@@ -1,5 +1,10 @@
 [[plugins]]
  package = "@netlify/plugin-local-install-core"
 
+ #[[plugins]]
+ #package = "./netlify-scrapejobsplugin"
+
  [[plugins]]
- package = "./netlify-scrapejobsplugin"
+ package = "./netlify-postjobfacebookplugin"
+
+ 
