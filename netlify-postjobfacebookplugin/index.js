@@ -140,7 +140,7 @@ module.exports = {
 
         const jobsOnFacebook = await Promise.all(publishedFacebookPromise);
         jobsOnFacebook.forEach(element => {
-            console.log("jobs published", element);
+            console.log("jobs published on facebook", element.data);
         });
 
         const updatedJobs = await Promise.all(jobsUpdated);
