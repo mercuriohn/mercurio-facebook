@@ -27,15 +27,16 @@ const getImages = async () => {
 
     const getQuery = imagesQueries[index];
 
-    const imageResponse = await axios.get(`https://api.unsplash.com/search/photos/?query=${getQuery}&client_id=${imageToken}`);
+    //const imageResponse = await axios.get(`https://api.unsplash.com/search/photos/?query=${getQuery}&client_id=${imageToken}`);
 
-    console.log("imageResponse ", imageResponse.data.results.length);
+    //console.log("imageResponse ", imageResponse.data.results.length);
 
-    const images = imageResponse.data.results.map((image) => ({ id: image.id, url: image.urls.small }));
+    //const images = imageResponse.data.results.map((image) => ({ id: image.id, url: image.urls.small }));
 
     //console.log("images response structure", images);
 
-    return images;
+    //return images;
+    return [];
 }
 
 const getJobs = async () => {
@@ -73,6 +74,7 @@ const jobsFactory = async () => {
             date: job[5],
             published: job[6],
             link: job[7],
+            ref: job[8].toString(),
             imageUrl: picture ? picture.url : null
         }
 
@@ -87,6 +89,9 @@ module.exports = {
     onPreBuild: async () => {
 
         console.log("jobs", await jobsFactory());
+        const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), '279582970127319556'),
+            { data: { facebookPost: true } }))
+
 
     },
 }
