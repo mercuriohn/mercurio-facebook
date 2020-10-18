@@ -33,10 +33,10 @@ const getImages = async () => {
 
     const imageResponse = await axios.get(`https://api.unsplash.com/search/photos/?query=${getQuery}&client_id=${imageToken}`);
 
-    //console.log("imageResponse ", imageResponse.length);
+    console.log("imageResponse ", imageResponse);
     //console.log("image response object", imageResponse.map((image) => ({ id: image.id, url: image.small })));
 
-    return imageResponse.map((image) => ({ id: image.id, url: image.small }));
+    return await imageResponse.map((image) => ({ id: image.id, url: image.small }));
 }
 
 const getJobs = async () => {
