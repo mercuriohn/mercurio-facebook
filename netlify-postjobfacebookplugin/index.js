@@ -62,7 +62,7 @@ const jobsFactory = async () => {
 
     console.log("get jobs", jobs);
 
-    const jobsToPublish = jobs.map((job) => {
+    const jobsToPublish = jobs.map(async (job) => {
         let attemp = 0;
         let picture = images.shift();
 
