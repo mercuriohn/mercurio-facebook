@@ -92,7 +92,7 @@ module.exports = {
         console.log("jobs", await jobsFactory());
         const jobs = await jobsFactory();
 
-        jobs.forEach((element, index) => {
+        jobs.forEach(async (element, index) => {
             if (index === 0 || index === 1) {
                 const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), element.ref),
                     { data: { facebookPost: false } }));
