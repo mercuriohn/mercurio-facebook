@@ -35,8 +35,9 @@ const getImages = async () => {
 
     console.log("imageResponse ", imageResponse.data.results.length);
     //console.log("image response object", imageResponse.map((image) => ({ id: image.id, url: image.small })));
-
-    return imageResponse.data.results.map((image) => ({ id: image.id, url: image.small }));
+    const images = imageResponse.data.results.map((image) => ({ id: image.id, url: image.small }));
+    console.log("images response structure", images);
+    return images;
 }
 
 const getJobs = async () => {
@@ -48,7 +49,7 @@ const getJobs = async () => {
     }
 
     //get first 10 jobs that haven't been published on facebook 
-    return JobsById.filter((job) => !job[6]).filter((_, index) => index < 11);
+    return JobsById.data.filter((job) => !job[6]).filter((_, index) => index < 11);
 }
 
 const jobsFactory = async () => {
