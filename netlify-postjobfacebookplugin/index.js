@@ -62,7 +62,7 @@ const jobsFactory = async () => {
 
     console.log("get jobs", jobs);
 
-    const jobsToPublish = jobsToPublish.map((job) => {
+    const jobsToPublish = jobs.map((job) => {
         const item = {
             id: job[0],
             title: job[1],
@@ -78,7 +78,7 @@ const jobsFactory = async () => {
         return item;
     })
 
-    return jobs;
+    return jobsToPublish;
 }
 
 
