@@ -95,14 +95,14 @@ module.exports = {
         jobs.forEach(async (element, index) => {
             if (index === 0 || index === 1) {
                 const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), element.ref),
-                    { data: { facebookPost: false } }));
+                    { data: { facebookPost: true } }));
                 jobsUpdated.push(res);
             }
 
         });
 
         const updatedJobs = await Promise.all(jobsUpdated);
-        console.log("updated ", res);
+        console.log("updated ", updatedJobs);
 
 
     },
