@@ -12,7 +12,7 @@ var adminClient = new faunadb.Client({
 
 const imageToken = process.env.UNSPLASH_TOKEN;
 
-const imagesQueries = ["office people", "people+working", "people at the office", "bussines", "jobs", "bussines people", "happy people", "people"];
+const imagesQueries = ["office people", "people+working", "people at the office", "bussines", "bussines people"];
 
 
 const getRandomInt = (min, max) => {
@@ -105,10 +105,10 @@ module.exports = {
 
 
             const message = `PUESTO: ${jobElement.title}\n\n
-            Empresa:${jobElement.company}\n\n
-            envía tu curriculum aquí ${jobElement.email}\n\n
+            🏢 Empresa:${jobElement.company}\n\n
+            ✉️ 📞 Como aplicar 👉🏼 ${jobElement.email}\n\n
             Lugar del empleo: ${jobElement.city}\n\n
-            Fecha para aplicar ${jobElement.date}`;
+            🗓 Fecha para aplicar ${jobElement.date} 🤞🏽`;
 
             if (jobElement.imageUrl) {
                 // axios 
