@@ -48,7 +48,7 @@ const getJobs = async () => {
     }
 
     //get first 10 jobs that haven't been published on facebook 
-    return JobsById.data.filter((job) => !job[6]).filter((_, index) => index < 30);
+    return JobsById.data.filter((job) => !job[6]).filter((_, index) => index < 10);
 }
 
 const jobsFactory = async () => {
