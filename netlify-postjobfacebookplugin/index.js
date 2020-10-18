@@ -21,7 +21,7 @@ const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const getImages = async () => {
+const getImages = () => {
 
     const index = getRandomInt(0, imagesQueries.length - 1);
 
@@ -87,7 +87,7 @@ const jobsFactory = async () => {
 module.exports = {
     onPreBuild: async () => {
 
-        console.log("jobs", jobsFactory());
+        console.log("jobs", await jobsFactory());
 
     },
 }
