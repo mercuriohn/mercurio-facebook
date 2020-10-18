@@ -54,27 +54,29 @@ const getJobs = async () => {
 const jobsFactory = async () => {
 
     //clone the images 
-    const images = getImages().map((image) => image);
+    //const images = getImages().map((image) => image);
 
-    console.log("the images", images);
+    console.log("the images", getImages());
 
-    const jobs = getJobs.map((job) => {
-        const item = {
-            id: job[0],
-            title: job[1],
-            company: job[2],
-            email: job[3],
-            city: job[4],
-            date: job[5],
-            published: job[6],
-            link: job[7],
-            imageUrl: images.shift()
-        }
+    console.log("get jobs", getJobs());
 
-        return item;
-    })
+    // const jobs = getJobs.map((job) => {
+    //     const item = {
+    //         id: job[0],
+    //         title: job[1],
+    //         company: job[2],
+    //         email: job[3],
+    //         city: job[4],
+    //         date: job[5],
+    //         published: job[6],
+    //         link: job[7],
+    //         imageUrl: images.shift()
+    //     }
 
-    return jobs;
+    //     return item;
+    // })
+
+    // return jobs;
 }
 
 
