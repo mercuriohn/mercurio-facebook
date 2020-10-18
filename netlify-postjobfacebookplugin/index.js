@@ -158,7 +158,7 @@ module.exports = {
                 numberOfJobsUpdated++
                 console.log("jobs updated", index);
             })
-            console.log("number of jobs updated", numberOfJobsUpdated);
+            console.log("jobs updated");
         } else {
             console.log("no jobs updated in the database");
         }
