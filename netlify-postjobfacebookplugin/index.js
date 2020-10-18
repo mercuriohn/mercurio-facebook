@@ -36,8 +36,8 @@ const getImages = async () => {
         client_id: imageToken,
     })
 
-    console.log("imageResponse ", imageResponse.length);
-    console.log("image response object", imageResponse.map((image) => ({ id: image.id, url: image.small })));
+    console.log("imageResponse ", await imageResponse.length);
+    console.log("image response object", await imageResponse.map((image) => ({ id: image.id, url: image.small })));
     return [];
     return imageResponse.map((image) => ({ id: image.id, url: image.small }));
 }
@@ -61,23 +61,23 @@ const jobsFactory = async () => {
     //clone the images 
     //const images = getImages().map((image) => image);
 
-    const jobs = getJobs.map((job) => {
-        const item = {
-            id: job[0],
-            title: job[1],
-            company: job[2],
-            email: job[3],
-            city: job[4],
-            date: job[5],
-            published: job[6],
-            link: job[7],
-            imageUrl: images.shift()
-        }
+    // const jobs = getJobs.map((job) => {
+    //     const item = {
+    //         id: job[0],
+    //         title: job[1],
+    //         company: job[2],
+    //         email: job[3],
+    //         city: job[4],
+    //         date: job[5],
+    //         published: job[6],
+    //         link: job[7],
+    //         imageUrl: images.shift()
+    //     }
 
-        return item;
-    })
+    //     return item;
+    // })
 
-    return jobs;
+    // return jobs;
 }
 
 
