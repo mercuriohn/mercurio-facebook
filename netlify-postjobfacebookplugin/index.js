@@ -64,7 +64,10 @@ const jobsFactory = async () => {
     console.log("get jobs", jobs);
 
     const jobsToPublish = jobs.map((job) => {
-        let picture = images.shift();
+        const picture = images.shift();
+        const refID = job[8].split(",").match(/"(.*?)"/)[1];
+        console.log("ref ", job[8]);
+        console.log("ref id", refID);
         const item = {
             id: job[0],
             title: job[1],
@@ -90,7 +93,9 @@ module.exports = {
 
         console.log("jobs", await jobsFactory());
         const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), '279582970127319556'),
-            { data: { facebookPost: true } }))
+            { data: { facebookPost: false } }));
+
+        console.log("updated ", res);
 
 
     },
