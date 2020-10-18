@@ -21,7 +21,7 @@ const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const getImages = () => {
+const getImages = async () => {
 
     const index = getRandomInt(0, imagesQueries.length - 1);
 
@@ -38,7 +38,7 @@ const getImages = () => {
 
     console.log("imageResponse ", imageResponse.length);
     console.log("image response object", imageResponse.map((image) => ({ id: image.id, url: image.small })));
-    return [];
+
     return imageResponse.map((image) => ({ id: image.id, url: image.small }));
 }
 
