@@ -25,14 +25,21 @@ const getImages = async () => {
 
     const index = getRandomInt(0, imagesQueries.length - 1);
 
+    console.log("index ", index);
+
     const getQuery = imagesQueries[index];
+
+    console.log("query", getQuery);
 
     const imageResponse = await axios.post(`https://api.unsplash.com/search/photos/`, {
         query: getQuery,
         client_id: imageToken,
     })
 
-    return imageResponse.map((image) => ({ id: image.id, url: image.small }))
+    console.log("imageResponse ", imageResponse.length);
+    console.log("image response object", imageResponse.map((image) => ({ id: image.id, url: image.small })));
+
+    return imageResponse.map((image) => ({ id: image.id, url: image.small }));
 }
 
 const getJobs = async () => {
