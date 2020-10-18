@@ -87,7 +87,7 @@ const jobsFactory = async () => {
 
 
 module.exports = {
-    onPreBuild: async () => {
+    onEnd: async () => {
 
         const facebook_token = process.env.FACEBOOK_LONG_LIVE_PAGE_ACCESS_TOKEN;
 
@@ -103,7 +103,6 @@ module.exports = {
 
         reverseJobs.forEach(async (jobElement) => {
 
-            console.log("job ", jobElement);
 
             const message = `PUESTO: ${jobElement.title}\n\n
             Empresa:${jobElement.company}\n\n
@@ -113,7 +112,7 @@ module.exports = {
 
             if (jobElement.imageUrl) {
                 // axios 
-                const post = await axios.post(`https://graph.facebook.com/${facebook_page_id}/photos`, {
+                const post = axios.post(`https://graph.facebook.com/${facebook_page_id}/photos`, {
                     url: jobElement.imageUrl,
                     message: message,
                     access_token: facebook_token
@@ -122,7 +121,7 @@ module.exports = {
 
             } else {
                 // axios 
-                const post = await axios.post(`https://graph.facebook.com/${facebook_page_id}/feed`, {
+                const post = axios.post(`https://graph.facebook.com/${facebook_page_id}/feed`, {
                     message: message,
                     access_token: facebook_token
                 })
@@ -139,7 +138,10 @@ module.exports = {
 
         });
 
-        await Promise.all(publishedFacebookPromise);
+        const jobsOnFacebook = await Promise.all(publishedFacebookPromise);
+        jobsOnFacebook.forEach(element => {
+            console.log("jobs published", element);
+        });
 
         const updatedJobs = await Promise.all(jobsUpdated);
         console.log("updated jobs");
