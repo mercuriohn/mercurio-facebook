@@ -66,8 +66,6 @@ const jobsFactory = async () => {
     const jobsToPublish = jobs.map((job) => {
         const picture = images.shift();
         const refID = job[8].toString().split(",")[1].match(/"(.*?)"/)[1];
-        console.log("ref ", job[8]);
-        console.log("ref id", refID);
         const item = {
             id: job[0],
             title: job[1],
@@ -77,7 +75,7 @@ const jobsFactory = async () => {
             date: job[5],
             published: job[6],
             link: job[7],
-            ref: job[8].toString(),
+            ref: refID,
             imageUrl: picture ? picture.url : null
         }
 
@@ -90,11 +88,20 @@ const jobsFactory = async () => {
 
 module.exports = {
     onPreBuild: async () => {
-
+        const jobsUpdated = [];
         console.log("jobs", await jobsFactory());
-        const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), '279582970127319556'),
-            { data: { facebookPost: false } }));
+        const jobs = await jobsFactory();
 
+        jobs.forEach((element, index) => {
+            if (index === 0 || index === 1) {
+                const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), element.ref),
+                    { data: { facebookPost: false } }));
+                jobsUpdated.push(res);
+            }
+
+        });
+
+        const updatedJobs = await Promise.all(jobsUpdated);
         console.log("updated ", res);
 
 
