@@ -59,9 +59,9 @@ const jobsFactory = async () => {
     const images = await getImages();
     const jobs = await getJobs();
 
-    console.log("the images", images);
+    //console.log("the images", images);
 
-    console.log("get jobs", jobs);
+    //console.log("get jobs", jobs);
 
     const jobsToPublish = jobs.map((job) => {
         const picture = images.shift();
@@ -94,6 +94,7 @@ module.exports = {
 
         jobs.forEach(async (element, index) => {
             if (index === 0 || index === 1) {
+                console.log("element ref", element.ref);
                 const res = await adminClient.query(q.Update(q.Ref(q.Collection('jobs'), element.ref),
                     { data: { facebookPost: true } }));
                 jobsUpdated.push(res);
