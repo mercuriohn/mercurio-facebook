@@ -65,7 +65,7 @@ const jobsFactory = async () => {
 
     const jobsToPublish = jobs.map((job) => {
         const picture = images.shift();
-        const refID = job[8].split(",").match(/"(.*?)"/)[1];
+        const refID = job[8].toString().split(",").match(/"(.*?)"/)[1];
         console.log("ref ", job[8]);
         console.log("ref id", refID);
         const item = {
