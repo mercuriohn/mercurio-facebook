@@ -12,7 +12,7 @@ var adminClient = new faunadb.Client({
 
 const imageToken = process.env.UNSPLASH_TOKEN;
 
-const imagesQueries = ["office people", "people+working", "people at the office", "bussines", "bussines people"];
+const imagesQueries = ["office people", "people at the office", "bussines", "bussines people", "work stations"];
 
 
 const getRandomInt = (min, max) => {
@@ -64,7 +64,9 @@ const jobsFactory = async () => {
     //console.log("get jobs", jobs);
 
     const jobsToPublish = jobs.map((job) => {
-        const picture = images.shift();
+        const index = getRandomInt(0, images.length - 1);
+        const picture = images.splice(index, 1);
+
         const refID = job[8].toString().split(",")[1].match(/"(.*?)"/)[1];
         const item = {
             id: job[0],
@@ -76,7 +78,7 @@ const jobsFactory = async () => {
             published: job[6],
             link: job[7],
             ref: refID,
-            imageUrl: picture ? picture.url : null
+            imageUrl: picture.length ? picture[0].url : null
         }
 
         return item;
@@ -104,11 +106,11 @@ module.exports = {
         reverseJobs.forEach(async (jobElement) => {
 
 
-            const message = `PUESTO: ${jobElement.title}\n\n
+            const message = `${jobElement.title}\n\n
             🏢 Empresa:${jobElement.company}\n\n
             ✉️ 📞 Como aplicar 👉🏼 ${jobElement.email}\n\n
             Lugar del empleo: ${jobElement.city}\n\n
-            🗓 Fecha para aplicar ${jobElement.date} 🤞🏽`;
+            🗓 Fecha para aplicar ${jobElement.date}`;
 
             if (jobElement.imageUrl) {
                 // axios 
