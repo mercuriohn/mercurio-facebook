@@ -12,7 +12,7 @@ var adminClient = new faunadb.Client({
 
 const imageToken = process.env.UNSPLASH_TOKEN;
 
-const imagesQueries = ["office people", "people at the office", "bussines", "bussines people", "work stations"];
+const imagesQueries = ['Job interview', 'meeting', 'job', 'resume'];
 
 
 const getRandomInt = (min, max) => {
