@@ -10,10 +10,16 @@ const scraperObject = {
             // Wait for the required DOM to be rendered
             await page.waitForSelector('.inner-content');
             // Get the link to all the required books
+
             let urls = await page.$$eval('ul.listService > li', links => {
+                const urlsLinks = [];
                 // Extract the links from the data
-                links = links.map(el => el.querySelector('.listWrpService h3 > a').href)
-                return links;
+                links.forEach((el) => {
+                    if (el.querySelector('.listWrpService h3 > a'))
+                        urlsLinks.push(el.querySelector('.listWrpService h3 > a').href);
+                })
+
+                return urlsLinks;
 
             });
 
