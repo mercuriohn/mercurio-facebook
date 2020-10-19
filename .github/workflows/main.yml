@@ -4,7 +4,7 @@ name: Trigger Netlify Build
 on:
   schedule:
     # Every 5 minutes
-    - cron: '0-59/5 * * * *'
+    - cron: '0 15 * * *'
 jobs:
   build:
     name: Netlify build
