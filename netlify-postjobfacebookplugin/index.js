@@ -48,7 +48,7 @@ const getJobs = async () => {
     }
 
     //get first 10 jobs that haven't been published on facebook 
-    return JobsById.data.filter((job) => !job[6]).filter((_, index) => index < 10);
+    return JobsById.data.filter((job) => !job[6]).filter((_, index) => index < 15);
 }
 
 const jobsFactory = async () => {
@@ -78,7 +78,8 @@ const jobsFactory = async () => {
             published: job[6],
             link: job[7],
             ref: refID,
-            imageUrl: picture.length ? picture[0].url : null
+            imageUrl: null
+            //imageUrl: picture.length ? picture[0].url : null
         }
 
         return item;
