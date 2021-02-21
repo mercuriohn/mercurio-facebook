@@ -5,7 +5,7 @@ const browser = require('./src/browser');
 
 const scraperController = require('./src/pageController');
 
-//const url = 'https://rds-empleos.hn/plazas/';
+// const url = 'https://rds-empleos.hn/plazas/';
 
 q = faunadb.query;
 
